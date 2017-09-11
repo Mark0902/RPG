@@ -1,0 +1,33 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowNoTitle">true</item>
+
+    </style>
+
+
+    <style name="GameTheme" parent="android:Theme.Light">
+        <item name="android:windowNoTitle">true</item>
+
+    </style>
+
+    <style name="GameStyle" parent="GameTheme">
+        <!-- Customize your theme here. -->
+
+    </style>
+
+    <style name="RedBar" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@android:color/holo_red_dark</item>
+    </style>
+    <style name="BlueBar" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@android:color/holo_red_dark</item>
+    </style>
+    <style name="noTitle" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorAccent">@android:color/holo_red_dark</item>
+    </style>
+</resources>
