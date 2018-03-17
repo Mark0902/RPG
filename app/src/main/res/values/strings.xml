@@ -1,3 +1,20 @@
 <resources>
-    <string name="app_name">RPG</string>
+    <string name="app_name">RPG_3</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="infoHealth">Здоровье/Макс.Здоровье</string>
+    <string name="infoMana">Мана/Макc.Мана</string>
+    <string name="infoDamage">Базовый урон</string>
+    <string name="infoDodge">Шанс на уворот</string>
+    <string name="infoCrit">Шанс на критический урон</string>
+    <string name="infoResist">Резист</string>
+    <string name="saveSlot">Слот №</string>
+    <string name="emptySaveSlot">Новая игра</string>
+    <string name="battleExitTitle">Побег из боя</string>
+    <string name="battleExitText">Попытаться покинуть бой бегством?</string>
+
+
 </resources>

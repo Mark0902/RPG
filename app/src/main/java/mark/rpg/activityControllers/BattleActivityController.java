@@ -1,25 +1,25 @@
 package mark.rpg.activityControllers;
 
+/**
+ * Created by Work on 04.11.2017.
+ */
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import java.util.Random;
 
@@ -28,10 +28,12 @@ import mark.rpg.GameObjects.Hero;
 import mark.rpg.GameStatus;
 import mark.rpg.Inventory;
 import mark.rpg.R;
-import mark.rpg.Spells.*;
+import mark.rpg.Spells.FireBall;
+import mark.rpg.Spells.HealingSpell;
+import mark.rpg.Spells.MeteorSpell;
+import mark.rpg.Spells.Spell;
 
-
-public class BattleActivity extends AppCompatActivity {
+public class BattleActivityController extends AppCompatActivity {
 
     Hero hero;// = new Hero(5,1000,100, 1, 10, 0.05);
     GameStatus gameStatus;
@@ -47,13 +49,12 @@ public class BattleActivity extends AppCompatActivity {
     TextView heroName;
     TextView enemyName;
 
-    ViewGroup skillPanel;
+    TableLayout skillPanel;
     ImageButton skillPanelOpener;
     ImageButton firstSkill;
     ImageButton secondSkill;
     ImageButton thirdSkill;
     ImageButton fourthSkill;
-    ImageButton fifthSkill;
 
     Spell[] spellArr;
     Spell firstSpell;
@@ -63,7 +64,6 @@ public class BattleActivity extends AppCompatActivity {
     TextView mc2;
     TextView mc3;
     TextView mc4;
-    TextView mc5;
 
 
     ProgressBar heroBar;
@@ -71,32 +71,34 @@ public class BattleActivity extends AppCompatActivity {
     ProgressBar heroManaBar;
     ImageView heroPicture;
     ImageView enemyPicture;
-   // public static final String
+    // public static final String
 
     Boolean skillPanelIsOpen;
-    ViewGroup.LayoutParams layotParamsOfPanelOpenerButton;
+    TableLayout.LayoutParams layotParamsOfPanelOpenerButton;
 
 
-    Animation heroAttackAnimation;
+    //Animation heroAttackAnimation;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_battle);
-        heroAttackAnimation=AnimationUtils.loadAnimation(this,R.anim.attack_animation);
+        setContentView(R.layout.activity_battle_2);
+        //heroAttackAnimation= AnimationUtils.loadAnimation(this,R.anim.attack_animation);
 
         //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
 
 
         Intent intent=getIntent();
 
         String type=intent.getStringExtra("eType");
-       // hero=(Hero)getIntent().getParcelableExtra("Hero");
+        // hero=(Hero)getIntent().getParcelableExtra("Hero");
 
-        //TODO передавать индекс сохранения в интентах
+        //TODO передавать индекс сохранения в интентах  ! Или сделать статик !
+
+
         int index=1;
         try {
             gameStatus = new GameStatus().readSave(getApplicationContext(),index);
@@ -107,11 +109,10 @@ public class BattleActivity extends AppCompatActivity {
             hero=new Hero(5,322,150,10,33,0.1);
             gameStatus=new GameStatus(hero,new Inventory());
             Toast toast = Toast.makeText(getApplicationContext(),
-                "Капут (("+e.getClass().toString(),
-                Toast.LENGTH_SHORT);
+                    "Ошибка чтения(мб при первом запуске)"+e.getClass().toString(),
+                    Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();}
-
 
         Random rnd=new Random();
 
@@ -143,14 +144,14 @@ public class BattleActivity extends AppCompatActivity {
 
 
 
-       // FireBall fb=new FireBall();
+        // FireBall fb=new FireBall();
         //hero.getListOfSpells().add(new MeteorSpell());
         //Spell secondSpell=new MeteorSpell();
 
         spellArr=new Spell[5];
         spellArr[0]=new FireBall();
         spellArr[1]=new FireBall();
-        spellArr[2]=new FireBall();
+        spellArr[2]=new MeteorSpell();
         spellArr[3]=new HealingSpell();
         spellArr[4]=new FireBall();
 
@@ -160,54 +161,51 @@ public class BattleActivity extends AppCompatActivity {
 
 
 
-         hitButton = (ImageButton) findViewById(R.id.attackButton);
+        hitButton = (ImageButton) findViewById(R.id.attackButton);
 
 
         statisticsLog=(TextView)findViewById(R.id.statistics);
-        statisticsLog.setTextSize(12);
+       // statisticsLog.setTextSize(12);
+        //В форме ето дело
 
 
+        int i=0;
         // ПАНЕЛЬ СКИЛЛОВ
-        skillPanel=(GridLayout)findViewById(R.id.skillPanel);
+        skillPanel=(TableLayout)findViewById(R.id.skillPanel);
         skillPanelOpener=(ImageButton)findViewById(R.id.skilPanelOpener);
 
 
-        firstSkill=(ImageButton)findViewById(R.id.firstSkill);
+        firstSkill=(ImageButton)findViewById(R.id.SkillNo1);
         firstSkill.setOnClickListener(onClickListener);
         //firstSkill.setImageResource(hero.getListOfSpells().get(0).getImageId());
         firstSkill.setImageResource(spellArr[0].getImageId());
 
 
-        secondSkill=(ImageButton)findViewById(R.id.secondSkill);
+        secondSkill=(ImageButton)findViewById(R.id.SkillNo2);
         secondSkill.setOnClickListener(onClickListener);
         secondSkill.setImageResource(spellArr[1].getImageId());
 
 
-         thirdSkill=(ImageButton)findViewById(R.id.thirdSkill);
+        thirdSkill=(ImageButton)findViewById(R.id.SkillNo3);
         thirdSkill.setOnClickListener(onClickListener);
         thirdSkill.setImageResource(spellArr[2].getImageId());
 
-         fourthSkill=(ImageButton)findViewById(R.id.fourthSkill);
+        fourthSkill=(ImageButton)findViewById(R.id.SkillNo4);
         fourthSkill.setOnClickListener(onClickListener);
         fourthSkill.setImageResource(spellArr[3].getImageId());
 
-         fifthSkill=(ImageButton)findViewById(R.id.fifthSkill);
-        fifthSkill.setOnClickListener(onClickListener);
-       fifthSkill.setImageResource(spellArr[4].getImageId());
 
 
 
-        mc1=(TextView)findViewById(R.id.mcost1);
-        mc2=(TextView)findViewById(R.id.mcost2);
-        mc3=(TextView)findViewById(R.id.mcost3);
-        mc4=(TextView)findViewById(R.id.mcost4);
-        mc5=(TextView)findViewById(R.id.mcost5);
+        mc1=(TextView)findViewById(R.id.mcostNo1);
+        mc2=(TextView)findViewById(R.id.mcostNo2);
+        mc3=(TextView)findViewById(R.id.mcostNo3);
+        mc4=(TextView)findViewById(R.id.mcostNo4);
 
         mc1.setText(Double.toString(spellArr[0].getBaseManacost()));
         mc2.setText(Double.toString(spellArr[1].getBaseManacost()));
         mc3.setText(Double.toString(spellArr[2].getBaseManacost()));
         mc4.setText(Double.toString(spellArr[3].getBaseManacost()));
-        mc5.setText(Double.toString(spellArr[4].getBaseManacost()));
 
 
 
@@ -226,7 +224,6 @@ public class BattleActivity extends AppCompatActivity {
         heroHealth.setTextColor(Color.RED);
 
         heroMana=(TextView)findViewById(R.id.heroMana);
-        heroMana.setTextColor(Color.BLUE);
 
 
         enemyHealth = (TextView) findViewById(R.id.enemyHealth);
@@ -240,9 +237,9 @@ public class BattleActivity extends AppCompatActivity {
         enemyPicture.setImageResource(enemy.getPersonImageId());
 
 
-        heroBar = (ProgressBar) findViewById(R.id.progressBar);
-       // heroBar.setDrawingCacheBackgroundColor(10);
-        enemyBar = (ProgressBar) findViewById(R.id.progressBar2);
+        heroBar = (ProgressBar) findViewById(R.id.hpBar);
+        // heroBar.setDrawingCacheBackgroundColor(10);
+        enemyBar = (ProgressBar) findViewById(R.id.enemyHpBar);
         //enemyBar.setDrawingCacheBackgroundColor(255);
         heroManaBar=(ProgressBar)findViewById(R.id.manaBar) ;
 
@@ -251,9 +248,6 @@ public class BattleActivity extends AppCompatActivity {
         heroManaBar.setMax((int)hero.getMaxMana());
 
 
-        heroBar.setDrawingCacheBackgroundColor(Color.RED);
-        enemyBar.setDrawingCacheBackgroundColor(Color.RED);
-        heroManaBar.setDrawingCacheBackgroundColor(Color.BLUE);
 
 
 
@@ -262,9 +256,11 @@ public class BattleActivity extends AppCompatActivity {
 
         skillPanel.setVisibility(Button.INVISIBLE);
         skillPanelIsOpen = false;
-        layotParamsOfPanelOpenerButton=skillPanelOpener.getLayoutParams();
 
-      //  enemyLogTextView.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+        //layotParamsOfPanelOpenerButton=skillPanelOpener.getLayoutParams();
+
+        int i1=0;
+        //  enemyLogTextView.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
 
     }
 
@@ -293,7 +289,7 @@ public class BattleActivity extends AppCompatActivity {
     public void onClick(View view) {
         redraw();
         hero.hitWithLog(enemy,statisticsLog);
-        heroPicture.startAnimation(heroAttackAnimation);
+       // heroPicture.startAnimation(heroAttackAnimation);
         checkWinner();
         redraw();
         enemysTurn();
@@ -303,13 +299,13 @@ public class BattleActivity extends AppCompatActivity {
     }
     public void SkillPanelOpen_OnClick(View view){
         if (!skillPanelIsOpen) {
-            hitButton.setVisibility(Button.INVISIBLE);
-            skillPanelOpener.setLayoutParams(hitButton.getLayoutParams());
+            //hitButton.setVisibility(Button.INVISIBLE);
+           // skillPanelOpener.setLayoutParams(hitButton.getLayoutParams());
             skillPanel.setVisibility(Button.VISIBLE);
         }
         else{
-            hitButton.setVisibility(Button.VISIBLE);
-            skillPanelOpener.setLayoutParams(layotParamsOfPanelOpenerButton);
+           // hitButton.setVisibility(Button.VISIBLE);
+           // skillPanelOpener.setLayoutParams(layotParamsOfPanelOpenerButton);
             skillPanel.setVisibility(Button.INVISIBLE);
 
         }
@@ -340,27 +336,23 @@ public class BattleActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.firstSkill:
-                   // hero.getListOfSpells().get(0).effectWithLog(hero,enemy,statisticsLog);
+                case R.id.SkillNo1:
+                    // hero.getListOfSpells().get(0).effectWithLog(hero,enemy,statisticsLog);
                     FireBall fb=new FireBall();
                     spellArr[0].effectWithLog(hero,enemy,statisticsLog);
 
                     enemysTurn();
                     break;
-                case R.id.secondSkill:
+                case R.id.SkillNo2:
                     spellArr[1].effectWithLog(hero,enemy,statisticsLog);
                     enemysTurn();
                     break;
-                case R.id.thirdSkill:
+                case R.id.SkillNo3:
                     spellArr[2].effectWithLog(hero,enemy,statisticsLog);
                     enemysTurn();
                     break;
-                case R.id.fourthSkill:
+                case R.id.SkillNo4:
                     spellArr[3].effectWithLog(hero,enemy,statisticsLog);
-                    enemysTurn();
-                    break;
-                case R.id.fifthSkill:
-                    spellArr[4].effectWithLog(hero,enemy,statisticsLog);
                     enemysTurn();
                     break;
 
@@ -381,7 +373,7 @@ public class BattleActivity extends AppCompatActivity {
     private void checkWinner(){
         //  WIN
         if (hero.isAlive() && enemy.isAlive()!=true){
-            hitButton.setVisibility(Button.INVISIBLE);
+            //hitButton.setVisibility(Button.INVISIBLE);
             statisticsLog.append("\n");;
             statisticsLog.setTextColor(Color.RED);
             statisticsLog.append("ПОБЕДА");
@@ -458,8 +450,22 @@ public class BattleActivity extends AppCompatActivity {
 
         }
     }
-
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.battleExitTitle))
+                .setMessage(getString(R.string.battleExitText))
+                .setNegativeButton(getString(R.string.no), null)
+                .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        //SomeActivity - имя класса Activity для которой переопределяем onBackPressed();
+                       BattleActivityController.super.onBackPressed();
+                    }
+                }).create().show();
     }
+
+}
+
 
 
 
