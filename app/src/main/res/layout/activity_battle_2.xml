@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:gravity="center"
-            android:text="TextView" />
+            android:text="@string/textExample" />
 
         <ProgressBar
             android:id="@+id/enemyHpBar"
@@ -67,7 +67,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="TextView" />
+                    android:text="@string/textExample" />
             </LinearLayout>
         </TableRow>
 
@@ -89,7 +89,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="3"
                     android:gravity="center"
-                    android:text="Te" />
+                    android:text="@string/textExample" />
 
                 <ProgressBar
                     android:id="@+id/hpBar"
@@ -208,7 +208,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="TextView" />
+                android:text="@string/textExample" />
         </TableRow>
 
         <TableRow
@@ -231,7 +231,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="TextView" />
+                android:text="@string/textExample" />
         </TableRow>
 
         <TableRow
@@ -254,7 +254,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="TextView" />
+                android:text="@string/textExample" />
         </TableRow>
 
         <TableRow
@@ -277,7 +277,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="TextView" />
+                android:text="@string/textExample" />
         </TableRow>
     </TableLayout>
 
@@ -293,7 +293,7 @@
         android:layout_alignTop="@+id/skillPanel"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="20dp"
-        android:gravity="bottom|left"
+        android:gravity="bottom|start"
         android:textSize="12sp" />
 
     <ImageView
@@ -322,6 +322,6 @@
         android:layout_toLeftOf="@+id/heroPicture"
         android:layout_toStartOf="@+id/heroPicture"
         android:gravity="center"
-        android:text="TextView" />
+        android:text="@string/textExample" />
 
 </RelativeLayout>

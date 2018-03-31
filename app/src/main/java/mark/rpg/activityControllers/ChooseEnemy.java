@@ -1,6 +1,8 @@
 package mark.rpg.activityControllers;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -99,5 +101,17 @@ public class ChooseEnemy extends AppCompatActivity {
     public void heroInfoButton_OnClick(View view){
         Intent intent=new Intent(this,HeroInfoController.class);
         startActivity(intent);
+    }
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.leaveGameQuetion)
+                .setNegativeButton(getString(R.string.no), null)
+                .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        //SomeActivity - имя класса Activity для которой переопределяем onBackPressed();
+                        ChooseEnemy.super.onBackPressed();
+                    }
+                }).create().show();
     }
 }

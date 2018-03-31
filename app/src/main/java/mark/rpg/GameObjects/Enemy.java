@@ -16,9 +16,9 @@ public class Enemy extends Person {
     double dodgeChance=0.1;
 
 
-    public static final Enemy[] weakEnemys={new Enemy(1,100,2,7),new Enemy(1,110,3,6),new Enemy(1,120,1,9),new Enemy(1,105,4,8)};
-    public static final Enemy[] middleEnemys={new Enemy(1,250,2,7),new Enemy(1,310,6,12),new Enemy(1,420,1,15),new Enemy(1,335,8,14)};
-    public static final Enemy[] strongEnemys={new Enemy(1,700,10,30),new Enemy(1,825,10,21),new Enemy(1,600,20,33),new Enemy(1,777,13,19)};
+    public static final Enemy[] WEAK_ENEMIES ={new Enemy(1,100,2,7),new Enemy(1,110,3,6),new Enemy(1,120,1,9),new Enemy(1,105,4,8)};
+    public static final Enemy[] ENEMIES ={new Enemy(1,250,2,7),new Enemy(1,310,6,12),new Enemy(1,420,1,15),new Enemy(1,335,8,14)};
+    public static final Enemy[] STRONG_ENEMIES ={new Enemy(1,700,10,30),new Enemy(1,825,10,21),new Enemy(1,600,20,33),new Enemy(1,777,13,19)};
 
 
 

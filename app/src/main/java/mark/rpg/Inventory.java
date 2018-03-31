@@ -18,4 +18,8 @@ public class Inventory implements Serializable{
     public void setGold(int gold) {
         this.gold = gold;
     }
+
+    public void changeGold(int profitOrLoss){
+        setGold(getGold()+profitOrLoss);
+    }
 }

@@ -11,6 +11,9 @@ import mark.rpg.GameStatus;
 import mark.rpg.R;
 import mark.rpg.Spells.FireBall;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP;
+
 /**
  * Created by Work on 05.03.2018.
  */
@@ -70,6 +73,7 @@ public class StartGameActivity extends AppCompatActivity {
         }
 
         intent=new Intent(this,ChooseEnemy.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {

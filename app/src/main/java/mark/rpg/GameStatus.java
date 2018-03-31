@@ -1,10 +1,6 @@
 package mark.rpg;
 
-import android.app.Activity;
 import android.content.Context;
-import android.os.Bundle;
-import android.util.Log;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -12,14 +8,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.sql.Time;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
+
 
 import mark.rpg.GameObjects.Hero;
 
-import static android.provider.Telephony.Mms.Part.FILENAME;
 
 /**
  * Created by Марк on 07.07.2017.
@@ -74,7 +67,7 @@ public class GameStatus implements Serializable {
 
     //Ошибка ??
     }
-    //TODO разобраЦа как сделать не в миллисекунах и убрать костыль
+    //TODO разобраЦа как сделать не в миллисекунах и убрать костыль //LocalDateTime added in API 26
     public void timeHealing(Hero hero){
 
 
@@ -119,7 +112,8 @@ public class GameStatus implements Serializable {
                         hero.setMana(hero.getMana() + addMp);
                     }
 
-            }
+    }
+
 
     public Hero getHero() {
         return hero;

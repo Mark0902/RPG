@@ -119,16 +119,16 @@ public class BattleActivity extends AppCompatActivity {
         int ind;
 
         if(type.equals("w")) {
-            ind=rnd.nextInt(Enemy.weakEnemys.length);
-            enemy=new Enemy(Enemy.weakEnemys[ind]);
+            ind=rnd.nextInt(Enemy.WEAK_ENEMIES.length);
+            enemy=new Enemy(Enemy.WEAK_ENEMIES[ind]);
         }
         if (type.equals("n")) {
-            ind=rnd.nextInt(Enemy.middleEnemys.length);
-            enemy=new Enemy(Enemy.middleEnemys[ind]);
+            ind=rnd.nextInt(Enemy.ENEMIES.length);
+            enemy=new Enemy(Enemy.ENEMIES[ind]);
         }
         if(type.equals("s")) {
-            ind=rnd.nextInt(Enemy.strongEnemys.length);
-            enemy=new Enemy(Enemy.strongEnemys[ind]);
+            ind=rnd.nextInt(Enemy.STRONG_ENEMIES.length);
+            enemy=new Enemy(Enemy.STRONG_ENEMIES[ind]);
         }
 
 

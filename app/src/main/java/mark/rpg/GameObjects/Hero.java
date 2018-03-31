@@ -17,11 +17,11 @@ import mark.rpg.Spells.Spell;
  */
 
 public class Hero extends Person implements Parcelable,Serializable {
-    int experience;
-    double maxMana;
-    double mana;
-    double critChance=0.1;
-    ArrayList<Spell> listOfSpells;
+    private int experience;
+    private double maxMana;
+    private double mana;
+    private double critChance=0.1;
+    private ArrayList<Spell> listOfSpells;
 
 
     public void setMaxMana(double maxMana) {

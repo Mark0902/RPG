@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RPG_3</string>
+    <string name="app_name">RPG_3.1</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="yes">Да</string>
@@ -15,6 +15,23 @@
     <string name="emptySaveSlot">Новая игра</string>
     <string name="battleExitTitle">Побег из боя</string>
     <string name="battleExitText">Попытаться покинуть бой бегством?</string>
+    <string name="chooseGameClass">Выберите класс персонажа</string>
+    <string name="chooseGameRace">Выберите расу персонажа</string>
+    <string name="ok">OK</string>
+    <string name="enterHeroName">Введите имя персонажа</string>
+    <string name="textExample">TextExample</string>
+    <string name="leaveGameQuetion">Покинуть игру?</string>
+    <string-array name="gameClasses">
+        <item>Воин</item>
+        <item>Разбойник</item>
+        <item>Маг</item>
+    </string-array>
+    <string-array name="gameRaces">
+        <item>Человек</item>
+        <item>Эльф</item>
+        <item>Гном</item>
+        <item>Орк</item>
+    </string-array>
 
 
 </resources>
