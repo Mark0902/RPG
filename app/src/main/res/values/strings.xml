@@ -20,7 +20,7 @@
     <string name="ok">OK</string>
     <string name="enterHeroName">Введите имя персонажа</string>
     <string name="textExample">TextExample</string>
-    <string name="leaveGameQuetion">Покинуть игру?</string>
+    <string name="leaveGameQuestion">Покинуть игру?</string>
     <string-array name="gameClasses">
         <item>Воин</item>
         <item>Разбойник</item>

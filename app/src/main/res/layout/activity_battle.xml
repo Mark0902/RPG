@@ -2,242 +2,326 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_battle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    style="@style/GameStyle"
-    tools:context="mark.rpg.activityControllers.BattleActivity">
+    android:background="@android:color/darker_gray"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="EnemyHealth"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/heroHealth"
-        android:layout_alignStart="@+id/heroHealth"
-        android:id="@+id/enemyHealth" />
-
-    <ProgressBar
-        style="?android:attr/progressBarStyleHorizontal"
-        android:theme="@style/RedBar"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/progressBar"
-        android:layout_marginLeft="100dp"
-        android:layout_alignBottom="@+id/heroHealth" />
+        android:background="?android:attr/colorFocusedHighlight"
+        android:orientation="horizontal">
 
-    <ProgressBar
-        style="?android:attr/progressBarStyleHorizontal"
-        android:theme="@style/BlueBar"
+        <TextView
+            android:id="@+id/enemyHealth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:text="@string/textExample" />
+
+        <ProgressBar
+            android:id="@+id/enemyHpBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:foreground="@color/colorRed" />
+    </LinearLayout>
+
+    <TableLayout
+        android:id="@+id/tableLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/manaBar"
-        android:layout_alignLeft="@+id/progressBar"
-        android:layout_below="@+id/progressBar"
-        />
-
-    <ProgressBar
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="match_parent"
-        android:theme="@style/RedBar"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/progressBar"
-        android:layout_alignStart="@+id/progressBar"
-        android:id="@+id/progressBar2" />
-
-    <TextView
-        android:text="heroHealth"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:id="@+id/heroHealth"
         android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/attackButton"
-
-         />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/btn_dialog"
-        android:layout_below="@+id/progressBar2"
-        android:layout_alignLeft="@+id/heroPicture"
-        android:layout_alignStart="@+id/heroPicture"
-        android:id="@+id/enemyPicture" />
-
-    <TextView
-        android:text="mana"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/heroMana"
-
-
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <ImageButton
-        android:text="Удар"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="19dp"
-        android:id="@+id/attackButton"
-        android:onClick="onClick"
-        app:srcCompat="@drawable/sword_small"
-        android:layout_above="@+id/heroHealth"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/btn_dialog"
-        android:id="@+id/heroPicture"
-        android:layout_marginTop="66dp"
-        android:layout_above="@+id/skillPanel"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/statistics"
-        android:text=""
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/progressBar2"
-        android:layout_above="@+id/skillPanel"
-        android:layout_below="@+id/enemyPicture"
-        android:isScrollContainer="true"
-        android:scrollbars = "vertical"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginStart="0dp"
+        tools:background="@color/colorPrimaryDark">
 
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-        android:gravity="bottom|left"
-        android:layout_toLeftOf="@+id/progressBar2" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorPrimaryDark"
+                android:orientation="horizontal">
 
-    <TextView
-        android:text="enemyName+lvl"
+                <TextView
+                    android:id="@+id/emptyTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3" />
+
+                <TextView
+                    android:id="@+id/heroName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/textExample" />
+            </LinearLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/colorPrimaryDark"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/heroHealth"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:text="@string/textExample" />
+
+                <ProgressBar
+                    android:id="@+id/hpBar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:foreground="@color/colorRed" />
+            </LinearLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/colorPrimaryDark"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/heroMana"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:textColor="@android:color/holo_purple" />
+
+                <ProgressBar
+                    android:id="@+id/manaBar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:foreground="@color/colorMana" />
+            </LinearLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/colorPrimaryDark"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/fake"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/colorPrimaryDark" />
+        </TableRow>
+
+    </TableLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/progressBar2"
-        android:layout_toRightOf="@+id/enemyPicture"
-        android:layout_toEndOf="@+id/enemyPicture"
-        android:layout_marginLeft="31dp"
-        android:layout_marginStart="31dp"
-        android:id="@+id/enemyName" />
+        android:layout_above="@+id/tableLayout"
+        android:layout_alignLeft="@+id/tableLayout"
+        android:layout_alignStart="@+id/tableLayout"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="horizontal">
 
-    <TextView
-        android:text="heroName+lvl"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/heroName"
-        android:layout_above="@+id/progressBar"
-        android:layout_toRightOf="@+id/heroPicture"
-        android:layout_toEndOf="@+id/heroPicture" />
+        <ImageButton
+            android:id="@+id/attackButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            app:srcCompat="@drawable/sword_small" />
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:id="@+id/skilPanelOpener"
-        android:background="@android:drawable/btn_star_big_on"
-        android:onClick="SkillPanelOpen_OnClick"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/attackButton"
-        android:layout_toRightOf="@+id/attackButton"
-        android:layout_toEndOf="@+id/attackButton" />
+        <ImageButton
+            android:id="@+id/skillPanelOpener"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_weight="1"
+            android:onClick="SkillPanelOpen_OnClick"
+            app:srcCompat="@android:drawable/btn_star_big_on" />
 
-    <GridLayout
+    </LinearLayout>
+
+    <TableLayout
         android:id="@+id/skillPanel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/attackButton"
-        android:layout_toEndOf="@+id/heroMana"
-        android:layout_toRightOf="@+id/heroMana"
-        android:columnCount="5"
-        android:orientation="horizontal">
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/linearLayout"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/colorPrimary">
 
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <ImageButton
-            android:id="@+id/firstSkill"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="-5dp"
-            app:srcCompat="@android:drawable/ic_input_add" />
+            <ImageButton
+                android:id="@+id/SkillNo1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/fireball" />
+        </TableRow>
 
-        <ImageButton
-            android:id="@+id/secondSkill"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="-5dp"
-            android:adjustViewBounds="false"
-            android:cropToPadding="false"
-            app:srcCompat="@drawable/fireball" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <ImageButton
-            android:id="@+id/thirdSkill"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="-5dp" />
+            <TextView
+                android:id="@+id/mcostNo1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/textExample" />
+        </TableRow>
 
-        <ImageButton
-            android:id="@+id/fourthSkill"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="-5dp" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <ImageButton
-            android:id="@+id/fifthSkill"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="-5dp" />
+            <ImageButton
+                android:id="@+id/SkillNo2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/fireball" />
+        </TableRow>
 
-        <TextView
-            android:id="@+id/mcost1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:text=""
-            android:textColor="@color/colorMana"
-            android:textSize="12sp" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/mcost2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:text="2"
-            android:textColor="@color/colorMana"
-            android:textSize="12sp" />
+            <TextView
+                android:id="@+id/mcostNo2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/textExample" />
+        </TableRow>
 
-        <TextView
-            android:id="@+id/mcost3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:text="3"
-            android:textColor="@color/colorMana"
-            android:textSize="12sp" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/mcost4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:text="4"
-            android:textColor="@color/colorMana"
-            android:textSize="12sp" />
+            <ImageButton
+                android:id="@+id/SkillNo3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/fireball" />
+        </TableRow>
 
-        <TextView
-            android:id="@+id/mcost5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:text=""
-            android:textColor="@color/colorMana"
-            android:textSize="12sp" />
-    </GridLayout>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/mcostNo3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/textExample" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/SkillNo4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/fireball" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/mcostNo4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/textExample" />
+        </TableRow>
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/statistics"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/skillPanel"
+        android:layout_alignEnd="@+id/linearLayout4"
+        android:layout_alignLeft="@+id/linearLayout4"
+        android:layout_alignRight="@+id/linearLayout4"
+        android:layout_alignStart="@+id/linearLayout4"
+        android:layout_alignTop="@+id/skillPanel"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="20dp"
+        android:gravity="bottom|start"
+        android:textSize="12sp" />
+
+    <ImageView
+        android:id="@+id/heroPicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tableLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        app:srcCompat="@android:drawable/btn_dialog" />
+
+    <ImageView
+        android:id="@+id/enemyPicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/statistics"
+        android:layout_toEndOf="@+id/heroPicture"
+        android:layout_toRightOf="@+id/heroPicture"
+        app:srcCompat="@android:drawable/btn_dialog" />
+
+    <TextView
+        android:id="@+id/enemyName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/statistics"
+        android:layout_toLeftOf="@+id/heroPicture"
+        android:layout_toStartOf="@+id/heroPicture"
+        android:gravity="center"
+        android:text="@string/textExample" />
 
 </RelativeLayout>

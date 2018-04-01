@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
         android:gravity="center">
 
         <Button
@@ -13,29 +16,56 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/saveSlot" />
+
+        <ImageButton
+            android:id="@+id/delSave1Button"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            android:onClick="delButton_onClick"
+            app:srcCompat="@android:drawable/ic_delete" />
+
     </TableRow>
 
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
         android:gravity="center">
 
         <Button
             android:id="@+id/saveSlot_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/saveSlot" />d
+            android:text="@string/saveSlot" />
+
+        <ImageButton
+            android:id="@+id/delSave2Button"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            android:onClick="delButton_onClick"
+            app:srcCompat="@android:drawable/ic_delete" />d
     </TableRow>
 
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
         android:gravity="center">
 
         <Button
             android:id="@+id/saveSlot_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="delButton_onClick"
             android:text="@string/saveSlot" />
+
+        <ImageButton
+            android:id="@+id/delSave3Button"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            app:srcCompat="@android:drawable/ic_delete" />
     </TableRow>
 </TableLayout>

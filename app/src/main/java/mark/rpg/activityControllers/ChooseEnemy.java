@@ -9,16 +9,12 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
 
-import mark.rpg.GameObjects.Enemy;
 import mark.rpg.GameObjects.Hero;
 import mark.rpg.GameStatus;
 import mark.rpg.Inventory;
 import mark.rpg.R;
 
 public class ChooseEnemy extends AppCompatActivity {
-    Enemy weakEnemy;
-    Enemy midleEnemy;
-    Enemy strongEnemy;
     Hero hero;
     GameStatus gs;
     int index;
@@ -31,7 +27,7 @@ public class ChooseEnemy extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //TODO сделать ивенты, грабить корованы
         setContentView(R.layout.activity_choose_enemy);
-        hero = new Hero(5, 500, 150, 10, 33, 0.1);
+        hero =  Hero.defaultHeroCreation();
 
         index=1;
         try {
@@ -39,9 +35,9 @@ public class ChooseEnemy extends AppCompatActivity {
 
             hero = gs.getHero();
         } catch (Exception e) {
-            hero = new Hero(5, 322, 150, 10, 33, 0.1);
+            hero =  Hero.defaultHeroCreation();
             Toast toast = Toast.makeText(getApplicationContext(),
-                    "Капут ((" + e.getClass().toString(),
+                    "ExceptioN: " + e.getClass().toString(),
                     Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
@@ -67,7 +63,7 @@ public class ChooseEnemy extends AppCompatActivity {
                 gs.writeSave(getApplicationContext(), 1);
             } catch (Exception e1) {
                 Toast toast = Toast.makeText(getApplicationContext(),
-                        "Капут ((" + e1.getClass().toString(),
+                        "ExceptioN:" + e1.getClass().toString(),
                         Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.show();
@@ -79,7 +75,7 @@ public class ChooseEnemy extends AppCompatActivity {
     public void onWeakClick(View view) {
         Intent intent=new Intent(this,BattleActivityController.class);
         intent.putExtra("eType","w");
-        //intent.putExtra("Hero",hero);
+        //gameContinuationIntent.putExtra("Hero",hero);
         startActivity(intent);
 
     }
@@ -87,15 +83,15 @@ public class ChooseEnemy extends AppCompatActivity {
     public void onNormalClick(View view) {
         Intent intent=new Intent(this,BattleActivityController.class);
         intent.putExtra("eType","n");
-       // intent.putExtra("Hero",hero);
+       // gameContinuationIntent.putExtra("Hero",hero);
         startActivity(intent);
 
     }
 
     public void onStrongClick(View view) {
-        Intent intent=new Intent(this,BattleActivity.class);
+        Intent intent=new Intent(this,BattleActivityController.class);
         intent.putExtra("eType","s");
-       // intent.putExtra("Hero",hero);
+       // gameContinuationIntent.putExtra("Hero",hero);
         startActivity(intent);
     }
     public void heroInfoButton_OnClick(View view){
@@ -105,12 +101,12 @@ public class ChooseEnemy extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         new AlertDialog.Builder(this)
-                .setTitle(R.string.leaveGameQuetion)
+                .setTitle(R.string.leaveGameQuestion)
                 .setNegativeButton(getString(R.string.no), null)
                 .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface arg0, int arg1) {
                         //SomeActivity - имя класса Activity для которой переопределяем onBackPressed();
-                        ChooseEnemy.super.onBackPressed();
+                        ChooseEnemy.super.finish();
                     }
                 }).create().show();
     }

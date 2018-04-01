@@ -18,9 +18,6 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".activityControllers.BattleActivity"
-            android:screenOrientation="portrait">
-        </activity>
         <activity android:name=".activityControllers.BattleActivityController"
             android:theme="@style/noTitle"
             android:screenOrientation="portrait">
@@ -33,6 +30,11 @@
         <activity
             android:name=".activityControllers.ChooseEnemy"
             android:theme="@style/noTitle">
+        </activity>
+        <activity
+            android:name=".activityControllers.CreateHeroActivity"
+            android:theme="@style/noTitle"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 

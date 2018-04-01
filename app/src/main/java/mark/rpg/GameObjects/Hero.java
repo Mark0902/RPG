@@ -16,12 +16,14 @@ import mark.rpg.Spells.Spell;
  * Created by Марк on 05.04.2017.
  */
 
-public class Hero extends Person implements Parcelable,Serializable {
+public class Hero extends Person implements Serializable {
     private int experience;
     private double maxMana;
     private double mana;
-    private double critChance=0.1;
+    private double critChance = 0.1;
     private ArrayList<Spell> listOfSpells;
+    private Race race;
+    private GameClass gameClass;
 
 
     public void setMaxMana(double maxMana) {
@@ -44,9 +46,9 @@ public class Hero extends Person implements Parcelable,Serializable {
 
     public void setHealth(int health) {
 
-        if(health<0)
+        if (health < 0)
             this.health = 0;
-        else this.health=health;
+        else this.health = health;
     }
 
     public void setMinAttack(int minAttack) {
@@ -93,64 +95,71 @@ public class Hero extends Person implements Parcelable,Serializable {
         this.listOfSpells = listOfSpells;
     }
 
-    public void setEmptyListOfSpells(){
+    public void setEmptyListOfSpells() {
         this.listOfSpells.clear();
     }
 
-    public Hero(int lvl, int maxhealth, double mana, int minAttack, int maxAttack, double critChance) {
-        super(lvl,maxhealth,minAttack,maxAttack);
-        this.maxMana=mana;
-        this.mana=maxMana;
+    public Hero(int lvl, int maxHealth, double mana, int minAttack, int maxAttack, double critChance,Race race,GameClass gameClass,String name) {
+        super(lvl, maxHealth, minAttack, maxAttack);
+        this.maxMana = mana;
+        this.mana = maxMana;
         this.critChance = critChance;
-        personImageId= R.drawable.batman48;
-        this.name="UserName";
+        personImageId = R.drawable.batman48;
+        this.name = name;
+        this.race=race;
+        this.gameClass=gameClass;
+    }
 
+    public static Hero firstLvlHeroCreation(Race r,GameClass gc,String name){
+        return new Hero(1,100,100,10,15,0.05,r,gc,name);
+    }
+
+    public static Hero defaultHeroCreation(){
+        return new Hero(5, 500, 150, 10, 33, 0.1,Race.HUMAN,GameClass.WARRIOR,"UserName");
     }
     @Override
-    public int hit(Person person){
+    public int hit(Person person) {
 
-        if(person.isDodged(this)) {
+        if (person.isDodged(this)) {
             return 0;
         }
-        Random rnd=new Random();
-        double plusDamage=Math.round((maxAttack-minAttack)*(rnd.nextDouble()));
-        int damage=minAttack+(int)plusDamage;
-        if (rnd.nextDouble()<=critChance) damage=(int)Math.round(damage*1.5);
-        person.setHealth(person.getHealth()-damage);
+        Random rnd = new Random();
+        double plusDamage = Math.round((maxAttack - minAttack) * (rnd.nextDouble()));
+        int damage = minAttack + (int) plusDamage;
+        if (rnd.nextDouble() <= critChance) damage = (int) Math.round(damage * 1.5);
+        person.setHealth(person.getHealth() - damage);
         return damage;
 
     }
 
     @Override
-    public int hitWithLog(Person person, TextView tv){
+    public int hitWithLog(Person person, TextView tv) {
 
-        if(person.isDodged(this)) {
-            tv.append("\n"+person.getName()+" увернулся!");
+        if (person.isDodged(this)) {
+            tv.append("\n" + person.getName() + " увернулся!");
             return 0;
         }
-        Random rnd=new Random();
-        double plusDamage=Math.round((maxAttack-minAttack)*(rnd.nextDouble()));
-        int damage=minAttack+(int)plusDamage;
-        if (rnd.nextDouble()<=critChance) damage=(int)Math.round(damage*1.5);
-        person.setHealth(person.getHealth()-damage);
-        tv.append("\n"+getName()+" наносит "+Integer.toString(damage)+" урона");
+        Random rnd = new Random();
+        double plusDamage = Math.round((maxAttack - minAttack) * (rnd.nextDouble()));
+        int damage = minAttack + (int) plusDamage;
+        if (rnd.nextDouble() <= critChance) damage = (int) Math.round(damage * 1.5);
+        person.setHealth(person.getHealth() - damage);
+        tv.append("\n" + getName() + " наносит " + Integer.toString(damage) + " урона");
         return damage;
 
     }
 
 
-
-
-
-    public void manaRegen(){
-        if(this.getMana()+this.getMaxMana()*0.05>this.getMaxMana()) this.setMana(maxMana);
-        else mana+=this.getMaxMana()*0.05;
+    public void manaRegen() {
+        if (this.getMana() + this.getMaxMana() * 0.05 > this.getMaxMana()) this.setMana(maxMana);
+        else mana += this.getMaxMana() * 0.05;
     }
+}
 
 
 
 
-    // PARSING
+    /*PARSING
 
     @Override
     public int describeContents() {
@@ -220,7 +229,7 @@ public class Hero extends Person implements Parcelable,Serializable {
 
 
     }
+    */
 
 
     // Hero(int h,int minA,int maxA,double critChance)
-}

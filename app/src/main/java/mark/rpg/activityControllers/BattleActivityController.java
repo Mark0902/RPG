@@ -50,7 +50,6 @@ public class BattleActivityController extends AppCompatActivity {
     TextView enemyName;
 
     TableLayout skillPanel;
-    ImageButton skillPanelOpener;
     ImageButton firstSkill;
     ImageButton secondSkill;
     ImageButton thirdSkill;
@@ -84,7 +83,7 @@ public class BattleActivityController extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_battle_2);
+        setContentView(R.layout.activity_battle);
         //heroAttackAnimation= AnimationUtils.loadAnimation(this,R.anim.attack_animation);
 
         //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -106,7 +105,7 @@ public class BattleActivityController extends AppCompatActivity {
             hero = gameStatus.getHero();
         }
         catch(Exception e){
-            hero=new Hero(5,322,150,10,33,0.1);
+            hero= Hero.defaultHeroCreation();
             gameStatus=new GameStatus(hero,new Inventory());
             Toast toast = Toast.makeText(getApplicationContext(),
                     "Ошибка чтения(мб при первом запуске)"+e.getClass().toString(),
@@ -172,7 +171,6 @@ public class BattleActivityController extends AppCompatActivity {
         int i=0;
         // ПАНЕЛЬ СКИЛЛОВ
         skillPanel=(TableLayout)findViewById(R.id.skillPanel);
-        skillPanelOpener=(ImageButton)findViewById(R.id.skilPanelOpener);
 
 
         firstSkill=(ImageButton)findViewById(R.id.SkillNo1);
@@ -292,7 +290,7 @@ public class BattleActivityController extends AppCompatActivity {
        // heroPicture.startAnimation(heroAttackAnimation);
         checkWinner();
         redraw();
-        enemysTurn();
+        enemiesTurn();
 
 
         //statisticsLog
@@ -320,7 +318,7 @@ public class BattleActivityController extends AppCompatActivity {
         hs.effectWithLog(hero,enemy,statisticsLog);
         redraw();
         checkWinner();
-        enemysTurn();
+        enemiesTurn();
         //Вывод знач хила
     }
 
@@ -341,19 +339,19 @@ public class BattleActivityController extends AppCompatActivity {
                     FireBall fb=new FireBall();
                     spellArr[0].effectWithLog(hero,enemy,statisticsLog);
 
-                    enemysTurn();
+                    enemiesTurn();
                     break;
                 case R.id.SkillNo2:
                     spellArr[1].effectWithLog(hero,enemy,statisticsLog);
-                    enemysTurn();
+                    enemiesTurn();
                     break;
                 case R.id.SkillNo3:
                     spellArr[2].effectWithLog(hero,enemy,statisticsLog);
-                    enemysTurn();
+                    enemiesTurn();
                     break;
                 case R.id.SkillNo4:
                     spellArr[3].effectWithLog(hero,enemy,statisticsLog);
-                    enemysTurn();
+                    enemiesTurn();
                     break;
 
             }
@@ -361,7 +359,7 @@ public class BattleActivityController extends AppCompatActivity {
     };
 
 
-    private void enemysTurn() {
+    private void enemiesTurn() {
         enemy.hitWithLog(hero, statisticsLog);
         //enemy.hit(hero);
         redraw();
@@ -372,7 +370,7 @@ public class BattleActivityController extends AppCompatActivity {
 
     private void checkWinner(){
         //  WIN
-        if (hero.isAlive() && enemy.isAlive()!=true){
+        if (hero.isAlive() && !enemy.isAlive()){
             //hitButton.setVisibility(Button.INVISIBLE);
             statisticsLog.append("\n");;
             statisticsLog.setTextColor(Color.RED);
@@ -415,7 +413,7 @@ public class BattleActivityController extends AppCompatActivity {
             */
         }
         // LOSE
-        if (hero.isAlive()!=true && enemy.isAlive()){
+        if (!hero.isAlive() && enemy.isAlive()){
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Поражение!")
@@ -432,7 +430,7 @@ public class BattleActivityController extends AppCompatActivity {
 
 
             Toast toast = Toast.makeText(getApplicationContext(),
-                    "Капут ((",
+                    "Поражение",
                     Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
@@ -443,7 +441,7 @@ public class BattleActivityController extends AppCompatActivity {
             skillPanel.setEnabled(false);
             return;
         }
-        if (hero.isAlive() == false) {
+        if (!hero.isAlive()) {
 
             hitButton.setVisibility(Button.INVISIBLE);
             //скилл панель убрать
