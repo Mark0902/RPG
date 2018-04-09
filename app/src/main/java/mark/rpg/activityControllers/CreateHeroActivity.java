@@ -127,7 +127,7 @@ public class CreateHeroActivity extends AppCompatActivity {
 
         GameStatus gameStatus=new GameStatus(createdHero,new Inventory());
         try {
-            gameStatus.writeSave(this,GameStatus.currentGameSaveIndex);
+            gameStatus.writeSave(this);
         }
         catch (Exception e){
             Toast toast = Toast.makeText(getApplicationContext(),
@@ -137,6 +137,7 @@ public class CreateHeroActivity extends AppCompatActivity {
             toast.show();
         }
         Intent intent=new Intent(this,ChooseEnemy.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 }

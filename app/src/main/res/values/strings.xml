@@ -12,6 +12,7 @@
     <string name="infoCrit">Шанс на критический урон</string>
     <string name="infoResist">Резист</string>
     <string name="saveSlot">Слот №</string>
+    <string name="deleteSaveQuestion">Удалить сохранение?</string>
     <string name="emptySaveSlot">Новая игра</string>
     <string name="battleExitTitle">Побег из боя</string>
     <string name="battleExitText">Попытаться покинуть бой бегством?</string>

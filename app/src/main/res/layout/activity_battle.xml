@@ -163,7 +163,7 @@
             android:id="@+id/attackButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onClick"
+            android:onClick="attackOnClick"
             app:srcCompat="@drawable/sword_small" />
 
         <ImageButton

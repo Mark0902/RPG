@@ -29,7 +29,7 @@ public class ChooseEnemy extends AppCompatActivity {
         setContentView(R.layout.activity_choose_enemy);
         hero =  Hero.defaultHeroCreation();
 
-        index=1;
+        index=GameStatus.currentGameSaveIndex;
         try {
             gs = new GameStatus().readSave(getApplicationContext(), index);
 
@@ -45,14 +45,14 @@ public class ChooseEnemy extends AppCompatActivity {
         }
         gs.timeHealing(hero);
         try {
-            gs.writeSave(getApplicationContext(), index);
+            gs.writeSave(getApplicationContext());
         }
         catch (Exception e1){}
 
 
 
 
-
+        /*
         try {
             hero = gs.readSave(getApplicationContext(), 1).getHero();
         }
@@ -60,7 +60,7 @@ public class ChooseEnemy extends AppCompatActivity {
             Inventory inv = new Inventory();
             gs=new GameStatus(hero, inv);
             try {
-                gs.writeSave(getApplicationContext(), 1);
+                gs.writeSave(getApplicationContext());
             } catch (Exception e1) {
                 Toast toast = Toast.makeText(getApplicationContext(),
                         "ExceptioN:" + e1.getClass().toString(),
@@ -69,13 +69,13 @@ public class ChooseEnemy extends AppCompatActivity {
                 toast.show();
             }
         }
+        */
 
 
     }
     public void onWeakClick(View view) {
         Intent intent=new Intent(this,BattleActivityController.class);
         intent.putExtra("eType","w");
-        //gameContinuationIntent.putExtra("Hero",hero);
         startActivity(intent);
 
     }
@@ -83,7 +83,6 @@ public class ChooseEnemy extends AppCompatActivity {
     public void onNormalClick(View view) {
         Intent intent=new Intent(this,BattleActivityController.class);
         intent.putExtra("eType","n");
-       // gameContinuationIntent.putExtra("Hero",hero);
         startActivity(intent);
 
     }
@@ -91,12 +90,14 @@ public class ChooseEnemy extends AppCompatActivity {
     public void onStrongClick(View view) {
         Intent intent=new Intent(this,BattleActivityController.class);
         intent.putExtra("eType","s");
-       // gameContinuationIntent.putExtra("Hero",hero);
         startActivity(intent);
     }
     public void heroInfoButton_OnClick(View view){
         Intent intent=new Intent(this,HeroInfoController.class);
         startActivity(intent);
+    }
+    private void finishThis(){
+        finish();
     }
     @Override
     public void onBackPressed() {
@@ -106,7 +107,7 @@ public class ChooseEnemy extends AppCompatActivity {
                 .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface arg0, int arg1) {
                         //SomeActivity - имя класса Activity для которой переопределяем onBackPressed();
-                        ChooseEnemy.super.finish();
+                        finishThis();
                     }
                 }).create().show();
     }

@@ -38,7 +38,7 @@ public class GameStatus implements Serializable {
 
     }
 
-    public void writeSave(Context context, int index)throws IOException{
+    public void writeSave(Context context)throws IOException{
 
         String FILENAME = "game";
         FileOutputStream fos = context.openFileOutput(FILENAME+ Integer.toString(currentGameSaveIndex)+".data", Context.MODE_PRIVATE);
@@ -66,6 +66,23 @@ public class GameStatus implements Serializable {
 
 
     //Ошибка ??
+    }
+
+    public static boolean deleteSave(Context context,int index){
+
+        String FILENAME = "game";
+        File file = context.getFileStreamPath(FILENAME+ Integer.toString(index)+".data");
+        if (!file.exists()) {
+            return false;
+        }
+        try {
+            file.delete();
+        }
+        catch (Exception ex){
+            //
+            return false;
+        }
+        return true;
     }
     //TODO разобраЦа как сделать не в миллисекунах и убрать костыль //LocalDateTime added in API 26
     public void timeHealing(Hero hero){

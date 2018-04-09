@@ -4,15 +4,22 @@ package mark.rpg.activityControllers;
  * Created by Work on 04.11.2017.
  */
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -32,14 +39,14 @@ import mark.rpg.Spells.FireBall;
 import mark.rpg.Spells.HealingSpell;
 import mark.rpg.Spells.MeteorSpell;
 import mark.rpg.Spells.Spell;
+import mark.rpg.animations.AnimatorSetProvider;
 
 public class BattleActivityController extends AppCompatActivity {
 
-    Hero hero;// = new Hero(5,1000,100, 1, 10, 0.05);
+    Hero hero;
     GameStatus gameStatus;
 
-    Enemy enemy;//=new Enemy(3,1200,20,30);
-
+    Enemy enemy;
 
     TextView statisticsLog;
     ImageButton hitButton;
@@ -64,17 +71,13 @@ public class BattleActivityController extends AppCompatActivity {
     TextView mc3;
     TextView mc4;
 
-
     ProgressBar heroBar;
     ProgressBar enemyBar;
     ProgressBar heroManaBar;
     ImageView heroPicture;
     ImageView enemyPicture;
-    // public static final String
 
     Boolean skillPanelIsOpen;
-    TableLayout.LayoutParams layotParamsOfPanelOpenerButton;
-
 
     //Animation heroAttackAnimation;
 
@@ -98,7 +101,7 @@ public class BattleActivityController extends AppCompatActivity {
         //TODO передавать индекс сохранения в интентах  ! Или сделать статик !
 
 
-        int index=1;
+        int index=GameStatus.currentGameSaveIndex;
         try {
             gameStatus = new GameStatus().readSave(getApplicationContext(),index);
 
@@ -111,7 +114,8 @@ public class BattleActivityController extends AppCompatActivity {
                     "Ошибка чтения(мб при первом запуске)"+e.getClass().toString(),
                     Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
-            toast.show();}
+            toast.show();
+        }
 
         Random rnd=new Random();
 
@@ -245,11 +249,6 @@ public class BattleActivityController extends AppCompatActivity {
         enemyBar.setMax(enemy.getMaxHealth());
         heroManaBar.setMax((int)hero.getMaxMana());
 
-
-
-
-
-
         statisticsLog.setMovementMethod(new ScrollingMovementMethod());
 
         skillPanel.setVisibility(Button.INVISIBLE);
@@ -284,16 +283,27 @@ public class BattleActivityController extends AppCompatActivity {
 
     }
 
-    public void onClick(View view) {
+    public void attackOnClick(View view) {
         redraw();
         hero.hitWithLog(enemy,statisticsLog);
+        AnimatorSet set=AnimatorSetProvider.evasionLeftAnimatorSet(heroPicture);
+        set.start();
+
+        set=AnimatorSetProvider.evasionRightAnimatorSet(heroPicture);
+      //  set.start();
+
+
+        set=AnimatorSetProvider.fireballAnimatorSet(heroPicture,enemyPicture);
+      //  set.start();
+
+
+
+        //startAnimation(heroPicture,enemyPicture);
        // heroPicture.startAnimation(heroAttackAnimation);
         checkWinner();
         redraw();
         enemiesTurn();
 
-
-        //statisticsLog
     }
     public void SkillPanelOpen_OnClick(View view){
         if (!skillPanelIsOpen) {
@@ -338,7 +348,6 @@ public class BattleActivityController extends AppCompatActivity {
                     // hero.getListOfSpells().get(0).effectWithLog(hero,enemy,statisticsLog);
                     FireBall fb=new FireBall();
                     spellArr[0].effectWithLog(hero,enemy,statisticsLog);
-
                     enemiesTurn();
                     break;
                 case R.id.SkillNo2:
@@ -359,11 +368,9 @@ public class BattleActivityController extends AppCompatActivity {
     };
 
 
-    private void enemiesTurn() {
+    private void enemiesTurn(){
         enemy.hitWithLog(hero, statisticsLog);
-        //enemy.hit(hero);
         redraw();
-
         checkWinner();
         hero.manaRegen();
     }
@@ -376,14 +383,13 @@ public class BattleActivityController extends AppCompatActivity {
             statisticsLog.setTextColor(Color.RED);
             statisticsLog.append("ПОБЕДА");
 
-
             enemy.getReward(gameStatus.getInventory());
 
             try {
-                gameStatus.writeSave(getApplicationContext(), GameStatus.currentGameSaveIndex);
+                gameStatus.writeSave(getApplicationContext());
             }
             catch(Exception e){Toast toast = Toast.makeText(getApplicationContext(),
-                    "Капут (("+e.getClass().toString(),
+                    "Ошибка записи"+e.getClass().toString(),
                     Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.show();}
@@ -396,7 +402,9 @@ public class BattleActivityController extends AppCompatActivity {
                     .setNeutralButton("ОК",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    startActivity(new Intent(getApplicationContext(),ChooseEnemy.class));
+                                    Intent intentToCE=new Intent(getApplicationContext(),ChooseEnemy.class);
+                                    intentToCE.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(intentToCE);
                                     dialog.cancel();
 
 
@@ -405,29 +413,25 @@ public class BattleActivityController extends AppCompatActivity {
 
             AlertDialog alert = builder.create();
             alert.show();
-            /*Toast toast = Toast.makeText(getApplicationContext(),
-                    "Ты Подебил!",
-                    Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER, 0, 0);
-            toast.show();
-            */
         }
         // LOSE
         if (!hero.isAlive() && enemy.isAlive()){
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Поражение!")
-                    .setMessage("Ну как ты мог((")
+                    .setMessage("??")
                     .setCancelable(false)
                     .setNeutralButton("ОК(",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
+                                    Intent intentToCE=new Intent(getApplicationContext(),ChooseEnemy.class);
+                                    intentToCE.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(intentToCE);
                                     dialog.cancel();
                                 }
                             });
             AlertDialog alert = builder.create();
             alert.show();
-
 
             Toast toast = Toast.makeText(getApplicationContext(),
                     "Поражение",
@@ -436,17 +440,16 @@ public class BattleActivityController extends AppCompatActivity {
             toast.show();
             redraw();
 
-
-            hitButton.setVisibility(Button.INVISIBLE);
+            hitButton.setEnabled(false);
             skillPanel.setEnabled(false);
-            return;
         }
-        if (!hero.isAlive()) {
+        //NOONE win ? //TODO
+        /*if (!hero.isAlive()) {
 
             hitButton.setVisibility(Button.INVISIBLE);
             //скилл панель убрать
-
         }
+        */
     }
     @Override
     public void onBackPressed() {
@@ -456,11 +459,32 @@ public class BattleActivityController extends AppCompatActivity {
                 .setNegativeButton(getString(R.string.no), null)
                 .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface arg0, int arg1) {
-                        //SomeActivity - имя класса Activity для которой переопределяем onBackPressed();
                        BattleActivityController.super.onBackPressed();
                     }
                 }).create().show();
     }
+
+
+    private void startAnimation(View hp,View enemy){
+        float fireballYStart=hp.getTop();
+        float fireballYEnd =enemy.getHeight();
+
+        final ObjectAnimator fireballAnimatorRev = ObjectAnimator
+                .ofFloat(hp, "y", fireballYEnd, fireballYStart)
+                .setDuration(1000);
+
+        ObjectAnimator fireballAnimator=ObjectAnimator
+                .ofFloat(hp,"y",fireballYStart, fireballYEnd)
+                .setDuration(1000);
+        AnimatorSet animatorSet=new AnimatorSet();
+       // animatorSet.play(fireballAnimator).before(fireballAnimatorRev);
+        animatorSet.playSequentially(fireballAnimator,fireballAnimatorRev);
+        animatorSet.start();
+
+
+        }
+
+
 
 }
 

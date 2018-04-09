@@ -66,6 +66,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginLeft="10dp"
+            android:onClick="delButton_onClick"
             app:srcCompat="@android:drawable/ic_delete" />
     </TableRow>
 </TableLayout>

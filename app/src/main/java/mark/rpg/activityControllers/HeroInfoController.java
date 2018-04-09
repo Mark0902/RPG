@@ -76,7 +76,7 @@ public class HeroInfoController extends AppCompatActivity {
                         hero.setHealth(hero.getMaxHealth());
                         gameStatus.getInventory().changeGold(-10);
                         try {
-                            gameStatus.writeSave(getApplicationContext(), GameStatus.currentGameSaveIndex);
+                            gameStatus.writeSave(getApplicationContext());
                         }
                         catch(Exception e){Toast toast = Toast.makeText(getApplicationContext(),
                                 "Ошибка (("+e.getClass().toString(),
